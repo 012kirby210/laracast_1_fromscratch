@@ -8,19 +8,6 @@
         @else
             <p>No posts yet. Please publish</p>
         @endif
-{{--        <div class="lg:grid lg:grid-cols-2">--}}
-{{--            @foreach ($posts as $post)--}}
-{{--                <x-post-card :post="$post" />--}}
-{{--            @endforeach--}}
-{{--        </div>--}}
-
-
-
-{{--        <div class="lg:grid lg:grid-cols-3">--}}
-{{--            <x-post-card />--}}
-{{--            <x-post-card />--}}
-{{--            <x-post-card />--}}
-{{--        </div>--}}
     </main>
 </x-layout>
 
