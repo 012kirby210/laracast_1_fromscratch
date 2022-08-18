@@ -23,12 +23,4 @@ Route::get('/', array( PostController::class, 'index'))->name('home');
 
 Route::get('/posts/{post}', array( PostController::class, 'show' ) );
 
-//Route::get('/authors/{author:username}', array( PostController::class, 'index' ) );
-
-//    function(User $author){
-//    return view('posts.index', [
-//        'posts' => $author->posts,
-//        'categories' => Category::all(),
-//    ]);
-//});
 
