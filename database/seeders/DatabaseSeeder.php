@@ -19,8 +19,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $user = User::factory()->create(['name' => 'John Doe']);
+
+        $categories = Category::factory(15)->create();
+
         Post::factory()->count(30)->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'category_id' => fn() => $categories->shuffle()->first()
         ]);
     }
 }
