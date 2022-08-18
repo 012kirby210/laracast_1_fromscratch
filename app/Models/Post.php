@@ -30,6 +30,11 @@ class Post extends Model
             $query->whereHas('category', fn($query) =>
                 $query->where('slug', $searched_category))
         );
+
+        $query->when($filters['author'] ?? false, fn ($query, $searched_author) =>
+            $query->whereHas('author', fn($query) =>
+                $query->where('username', $searched_author))
+        );
     }
 
     public function category()
