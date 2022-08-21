@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController as SessionsController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Post;
@@ -23,7 +24,11 @@ use \App\Http\Controllers\PostController;
 Route::get('/', array( PostController::class, 'index'))->name('home');
 Route::get('/posts/{post}', array( PostController::class, 'show' ) );
 
-Route::get('register', [RegisterController::class,'create']);
-Route::post('register', [RegisterController::class,'store']);
+Route::get('register', [RegisterController::class,'create'])->middleware('guest');
+Route::post('register', [RegisterController::class,'store'])->middleware('guest');
+Route::get('login', [SessionsController::class,'login'])->middleware('guest');
+
+Route::post('logout', [SessionsController::class,'destroy'])->middleware('auth');
+
 
 
