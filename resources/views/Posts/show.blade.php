@@ -5,16 +5,17 @@
                 <img src="/images/illustration-1.png" alt="" class="rounded-xl">
 
                 <p class="mt-4 block text-gray-400 text-xs">
-                    Published <time>{{ $post->created_at->diffForHumans() }}</time>
+                    Published
+                    <time>{{ $post->created_at->diffForHumans() }}</time>
                 </p>
 
                 <a href="/users/{{ $post->author->username }}">
-                <div class="flex items-center lg:justify-center text-sm mt-4">
-                    <img src="/images/lary-avatar.svg" alt="Lary avatar">
-                    <div class="ml-3 text-left">
-                        <h5 class="font-bold">{{$post->author->name}}</h5>
+                    <div class="flex items-center lg:justify-center text-sm mt-4">
+                        <img src="/images/lary-avatar.svg" alt="Lary avatar">
+                        <div class="ml-3 text-left">
+                            <h5 class="font-bold">{{$post->author->name}}</h5>
+                        </div>
                     </div>
-                </div>
                 </a>
             </div>
 
@@ -36,7 +37,7 @@
                     </a>
 
                     <div class="space-x-2">
-                       <x-category-button :category="$post->category"/>
+                        <x-category-button :category="$post->category"/>
                     </div>
                 </div>
 
@@ -48,6 +49,13 @@
                     {!! $post->body !!}
                 </div>
             </div>
+
+            <section class="col-span-8 col-start-5 space-y-6 mt-8">
+                <x-post-comment />
+                <x-post-comment />
+                <x-post-comment />
+                <x-post-comment />
+            </section>
         </article>
     </main>
 
