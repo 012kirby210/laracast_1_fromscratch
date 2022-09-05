@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController as CommentController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController as SessionsController;
 use Illuminate\Support\Facades\File;
@@ -23,7 +24,7 @@ use \App\Http\Controllers\PostController;
 
 Route::get('/', array( PostController::class, 'index'))->name('home');
 Route::get('/posts/{post}', array( PostController::class, 'show' ) );
-
+Route::post('/posts/{post:slug}/comments', [ CommentController::class, 'store' ] );
 Route::get('register', [RegisterController::class,'create'])->middleware('guest');
 Route::post('register', [RegisterController::class,'store'])->middleware('guest');
 

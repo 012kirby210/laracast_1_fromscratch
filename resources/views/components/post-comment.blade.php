@@ -3,7 +3,7 @@
 <x-panel class="bg-gray-100">
     <article class="flex space-x-4">
         <div class="flex-shrink-0">
-            <img src="https://i.pravatar.cc/100?u={{ $comment->id }}"
+            <img src="https://i.pravatar.cc/100?u={{ $comment->author->id }}"
                  alt=""
                  width="60"
                  height="60"
