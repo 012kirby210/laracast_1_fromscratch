@@ -19,7 +19,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create(['name' => 'John Doe']);
+        $user = User::factory()->create([
+            'name' => 'John Doe',
+            'username' => 'Johgn Do'
+            ]);
 
         $categories = Category::factory(15)->create();
 
