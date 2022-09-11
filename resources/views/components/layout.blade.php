@@ -24,11 +24,24 @@
             <a href="/register" class="text-xs font-bold uppercase mx-3">Register</a>
             <a href="/login" class="text-xs font-bold uppercase mx-3">Login</a>
             @else
-                <span class="text-xs font-bold uppercase mx-3">Welcome back {{ auth()->user()->username }}</span>
-                <form method="POST" action="/logout" class="mx-3 text-sm font-semibold text-blue-500">
-                    @csrf
-                    <button type="submit">Log out</button>
-                </form>
+                <x-dropdown class="relative">
+                    <x-slot name="trigger">
+                        <button class="text-xs font-bold uppercase mx-3">
+                            Welcome back {{ auth()->user()->username }}
+                        </button>
+                    </x-slot>
+                    <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New post</x-dropdown-item>
+                    <x-dropdown-item href="/admin/dashboard" :active="request()->is('admin/dashboard')">Dashboard</x-dropdown-item>
+
+                    <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log out</x-dropdown-item>
+
+                    <form id="logout-form" method="POST" action="/logout" class="hidden">
+                        @csrf
+                    </form>
+
+                </x-dropdown>
+
+
             @endguest
             <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                 Subscribe for Updates
