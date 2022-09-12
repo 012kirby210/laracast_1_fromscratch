@@ -28,7 +28,7 @@ class AdminPostController extends Controller
         $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         Post::create($attributes);
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Post stored');
     }
 
     public function index()
@@ -65,5 +65,12 @@ class AdminPostController extends Controller
         $post->update($attributes);
 
         return back()->with('success', 'Post updated');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return back()->with('success', 'Post deleted');
     }
 }
