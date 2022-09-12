@@ -31,14 +31,14 @@ class AdminPostController extends Controller
         return redirect('/');
     }
 
-//    public function index()
-//    {
-//        return view('admin.posts.index',
-//            [
-//                'posts' => Post::paginate(50)
-//            ]
-//        );
-//    }
+    public function index()
+    {
+        return view('admin.posts.index',
+            [
+                'posts' => Post::paginate(50)
+            ]
+        );
+    }
 
     public function edit(Post $post)
     {
