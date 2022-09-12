@@ -32,6 +32,7 @@
                     </x-slot>
                     <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')">New post</x-dropdown-item>
                     <x-dropdown-item href="/admin/dashboard" :active="request()->is('admin/dashboard')">Dashboard</x-dropdown-item>
+                    <x-dropdown-item href="/admin/posts" :active="request()->is('admin/posts')">Manage posts</x-dropdown-item>
 
                     <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log out</x-dropdown-item>
 
