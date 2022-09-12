@@ -45,7 +45,7 @@
                                         </span>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <a href="/admin/posts/{{ $post->id }}/edit" class="text-blue-500 font-semibold uppercase hover:text-blue-600">Edit</a>
+                                <a href="/admin/posts/{{ $post->slug }}/edit" class="text-blue-500 font-semibold uppercase hover:text-blue-600">Edit</a>
                             </td>
                         </tr>
                     @endforeach
