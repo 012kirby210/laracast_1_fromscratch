@@ -9,24 +9,18 @@ use Illuminate\Validation\Rule;
 class AdminPostController extends Controller
 {
 
-    public function create(){
+    public function create()
+    {
         return view('admin.posts.create');
     }
 
-    public function store(){
+    public function store()
+    {
 
-        $attributes = request()->validate([
-            'title' => 'required',
-            'thumbnail' => 'required|image',
-            'slug' => [ 'required', Rule::unique('posts','slug')],
-            'excerpt'=> 'required',
-            'body' => 'required',
-            'category_id' => [ 'required', Rule::exists('categories','id') ]
-        ]);
-
-        $attributes['user_id'] = auth()->id();
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
-        Post::create($attributes);
+        Post::create(array_merge($this->validatePost(), [
+            'user_id' => auth()->id(),
+            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
+        ]));
 
         return redirect('/')->with('success', 'Post stored');
     }
@@ -42,22 +36,15 @@ class AdminPostController extends Controller
 
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', [ 'post' => $post ]);
+        return view('admin.posts.edit', ['post' => $post]);
     }
 
     public function update(Post $post)
     {
-        $attributes = request()->validate([
-            'title' => 'required',
-            'thumbnail' => 'image',
-            'slug' => [ 'required', Rule::unique('posts','slug')->ignore($post->id)],
-            'excerpt'=> 'required',
-            'body' => 'required',
-            'category_id' => [ 'required', Rule::exists('categories','id') ]
-        ]);
+        $attributes = $this->validatePost($post);
 
         $attributes['user_id'] = auth()->id();
-        if ( isset( $attributes['thumbnail'] ) ){
+        if ($attributes['thumbnail'] ?? false) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
 
@@ -72,5 +59,23 @@ class AdminPostController extends Controller
         $post->delete();
 
         return back()->with('success', 'Post deleted');
+    }
+
+    /**
+     * @param Post $post
+     * @return array
+     */
+    protected function validatePost(?Post $post = null): array
+    {
+        $post ??= new Post();
+
+        return request()->validate([
+            'title' => 'required',
+            'thumbnail' => $post->exists ? ['required'] : ['required', 'image'],
+            'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)],
+            'excerpt' => 'required',
+            'body' => 'required',
+            'category_id' => ['required', Rule::exists('categories', 'id')]
+        ]);
     }
 }
